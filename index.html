@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Sentence Generator</title>
+</head>
+<body>
+<div id="main"></div>
+<input type="text" name="question" id="question" placeholder="question">
+
+
+<script>
+const box = document.getElementById("main")
+const input = document.getElementById("question")
+    var nouns = ["fish", "tree", "car", "skeleton", "movie"]
+    var verbs = ["kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "outdo", "kill", "vaporise", "draw", "sketch"]
+    var mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
+    var mainverb = verbs[Math.floor(Math.random() * verbs.length)]
+    var adjectives = ["fish", "tree", "car"]
+    var append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you"]
+
+input.addEventListener('input', function() {
+    regenerate()
+});
+
+function regenerate(){
+    mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
+
+    nouns.forEach(element => {
+        if (input.textContent.includes(element)){
+            mainnoun = element
+        }
+    });
+    mainverb = verbs[Math.floor(Math.random() * verbs.length)]
+
+    verbs.forEach(element => {
+        if (input.textContent.includes(element)){
+            mainverb = element
+        }
+    });
+
+    box.textContent = ""
+    box.append(sentence())
+}
+
+
+function sentence(){
+    sentences = [
+    "you should "+mainverb + " a "+mainnoun+random(append),
+    "you should not "+mainverb + " a "+mainnoun+" today"
+
+    ]
+    return(random(sentences))
+}
+
+function noun(){
+    return nouns[Math.floor(Math.random() * nouns.length)]
+}
+function verb(){
+    return verbs[Math.floor(Math.random() * verbs.length)]
+}
+function random(list){
+    return list[Math.floor(Math.random() * list.length)]
+}
+</script>
+
+</body>
+</html>
