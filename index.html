@@ -17,8 +17,8 @@ const input = document.getElementById("question")
     var verbs = ["kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "outdo", "kill", "vaporise", "draw", "sketch"]
     var mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
     var mainverb = verbs[Math.floor(Math.random() * verbs.length)]
-    var adjectives = ["fish", "tree", "car"]
-    var append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you"]
+    var adjectives = ["big", "red", "green", "small"]
+    var append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you", ".", ".", ".", "."]
 
 input.addEventListener('input', function() {
     regenerate()
@@ -28,27 +28,27 @@ function regenerate(){
     mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
 
     nouns.forEach(element => {
-        if (input.textContent.includes(element)){
+        if (input.value.includes(element)){
             mainnoun = element
         }
     });
     mainverb = verbs[Math.floor(Math.random() * verbs.length)]
 
     verbs.forEach(element => {
-        if (input.textContent.includes(element)){
+        if (input.value.includes(element)){
             mainverb = element
         }
     });
-
+append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you", ".", ".", ".", "."]
     box.textContent = ""
     box.append(sentence())
 }
 
 
 function sentence(){
-    sentences = [
-    "you should "+mainverb + " a "+mainnoun+random(append),
-    "you should not "+mainverb + " a "+mainnoun+" today"
+    let sentences = [
+    "You should "+mainverb + " a " + random(adjectives)+" "+mainnoun+ random(append),
+    "You should not "+mainverb + " a "+mainnoun+" today"
 
     ]
     return(random(sentences))
