@@ -11,6 +11,9 @@
 
 
 <script>
+
+
+
 const box = document.getElementById("main")
 const input = document.getElementById("question")
     var nouns = ["fish", "tree", "car", "skeleton", "movie"]
@@ -54,12 +57,28 @@ append = [", as soon as possible.", " every day.", " before tomorrow", " before 
 
 
 function sentence(){
+    let hardcoded = 
+[["hello", "hi"], ["friend", "nuh uh i'm your enemy"], ["why not", "because i said so, don't"]]
+
+    let sentencebool = false
+    let issentence = ""
+    hardcoded.forEach(element => {
+        if (input.value.includes(element[0]) && Math.random()<0.9){
+            issentence = element[1]
+            sentencebool=true
+            console.log(element)
+        }
+    })
+
+
     let sentences = [
     "You should "+mainverb + " a " + random(adjectives)+" "+mainnoun+ random(append),
     "You should not "+mainverb + " a "+mainnoun+" today"
 
     ]
-    return(random(sentences))
+        if(sentencebool){
+            return(issentence)}else{
+    return(random(sentences))}
 }
 
 function noun(){
