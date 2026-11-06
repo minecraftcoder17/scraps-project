@@ -16,16 +16,24 @@
 
 const box = document.getElementById("main")
 const input = document.getElementById("question")
-    var nouns = ["fish", "tree", "car", "skeleton", "movie"]
-    var verbs = ["kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "outdo", "kill", "vaporise", "draw", "sketch"]
+    var adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly"]
+    var adjectivesb = ["strange", "weird", "funny", "cool", "silly"]
+    var nouns = ["fish", "tree", "car", "skeleton", "movie","truck","train","pasta","i-phone","computer","house","garage","Antarctica","pancake","nintendo console","book"]
+    var verbs = ["kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "kill", "draw", "sketch"]
     var mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
     var mainverb = verbs[Math.floor(Math.random() * verbs.length)]
-    var adjectives = ["big", "red", "green", "small"]
     var append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you", ".", ".", ".", "."]
 
 //input.addEventListener('input', function() {
 //    regenerate()
 //});
+
+input.addEventListener('keydown', function(event) {
+    console.log(1234)
+    if (event.key === 'Enter') {
+        regenerate()
+    input.value=""
+}})
 document.getElementById("send").addEventListener('click', function() {
     regenerate()
 
@@ -33,32 +41,46 @@ document.getElementById("send").addEventListener('click', function() {
 });
 
 function regenerate(){
-    mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
-
+    
+    if(Math.random()<0.5 && input.value.length > 8){
+        mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
+    }
     nouns.forEach(element => {
         if (input.value.includes(element) && Math.random()<0.9){
             mainnoun = element
         }
     });
-    mainverb = verbs[Math.floor(Math.random() * verbs.length)]
+    if(Math.random()<0.5 && input.value.length > 8){mainverb = verbs[Math.floor(Math.random() * verbs.length)]}
 
     verbs.forEach(element => {
         if (input.value.includes(element) && Math.random()<0.9){
             mainverb = element
         }
     });
-append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you", ".", ".", ".", "."]
+    append = [", as soon as possible.", " every day.", " before tomorrow.", " before the "+mainnoun+"s can stop you.", ".", ".", ".", "."]
     box.append("- ")
     box.append(input.value)
     box.append(document.createElement("br"))
-    box.append(sentence())
+    box.append(sentence() + " ")
+    if(Math.random()<0.1){
+        box.append(sentence() + " ")
+        box.append(sentence() + " ")
+        box.append(sentence() + " ")
+
+    }
     box.append(document.createElement("br"))
 }
 
 
 function sentence(){
-    let hardcoded = 
-[["hello", "hi"], ["friend", "nuh uh i'm your enemy"], ["why not", "because i said so, don't"]]
+    let hardcoded = [
+        ["hello", "hi"],
+        ["friend", "nuh uh i'm your enemy"],
+        ["why not", "because i said so, don't"],
+        ["sudo", "$sudo make me a sandwich"],
+        ["like", "I like destroying "+mainnoun],
+        ["that is", "you're "+random(adjectives)]
+    ]
 
     let sentencebool = false
     let issentence = ""
@@ -73,7 +95,10 @@ function sentence(){
 
     let sentences = [
     "You should "+mainverb + " a " + random(adjectives)+" "+mainnoun+ random(append),
-    "You should not "+mainverb + " a "+mainnoun+" today"
+    "You should not "+mainverb + " a "+mainnoun+" today.",
+    "I don't think you should "+mainverb + " a "+mainnoun+" today.",
+    mainverb + "ing is fun!",
+    "my favorite food is "+ mainnoun+", isn't that "+random(adjectivesb)+"?"
 
     ]
         if(sentencebool){
@@ -82,6 +107,10 @@ function sentence(){
 }
 
 function noun(){
+    if(Math.random()<0.2){
+        return (random(adjectives)+" "+noun())
+ 
+    }
     return nouns[Math.floor(Math.random() * nouns.length)]
 }
 function verb(){
