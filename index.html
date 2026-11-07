@@ -52,7 +52,6 @@ div {
     var append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you", ".", ".", ".", "."]
 
 input.addEventListener('keydown', function(event) {
-    console.log(1234)
     if (event.key === 'Enter') {
         regenerate()
     input.value=""
@@ -86,7 +85,7 @@ function regenerate(){
     textprompt.split(" ").forEach(element => {
         if(["don't", "not", "anti"].includes(element)){parity=!parity}
         if(element.length > 3 && "qwertyuiopasdfghjklzxcvbnm".includes(element.at(-1))){
-            if(["like", "dislike", "hate", "enjoy"].includes(sentencelist[-1])){mainnoun =element}
+            if(["like", "dislike", "hate", "enjoy", "want"].includes(sentencelist[-1])){mainnoun =element}
                 if(["dislike", "hate"].includes(sentencelist[-1])){parity=!parity}
                 mainnoun=element
             sentencelist.push(element)
@@ -173,7 +172,7 @@ function sentence(){
     "You should "+mainverb + " a " + random(adjectives)+" "+mainnoun+ random(append),
     "You should not "+mainverb + " a "+mainnoun+" today.",
     "I don't think you should "+mainverb + " a "+mainnoun+" today.",
-    "Did you know that "+mainnoun+"s are "+(parity?random["annoying", "boring", "weird"]:random["interesting", "cool", "fun", "basically "+random[adjectives], "similar to "+random[nouns]]),
+    "Did you know that "+mainnoun+"s are "+(parity?random(["annoying", "boring", "weird"]):random(["interesting", "cool", "fun", "basically "+random(adjectives)]))+"?",
     mainnoun + "s are "+random(adjectives)+"ly "+random(adjectives)+"!",
 
     "my "+(parity?"least favorite":"favorite") +" food is "+ mainnoun+", isn't that "+random(adjectivesb)+"?"
