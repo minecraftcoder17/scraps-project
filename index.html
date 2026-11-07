@@ -19,7 +19,7 @@ const input = document.getElementById("question")
     var playerwords = ["null"]
     var adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly"]
     var adjectivesb = ["strange", "weird", "funny", "cool", "silly"]
-    var nouns = ["fish", "tree", "car", "skeleton", "movie","truck","train","pasta","i-phone","computer","house","garage","Antarctica","pancake","nintendo console","book"]
+    var nouns = ["fish", "seaweed", "algae", "plant", "tree", "log", "stick", "wheel", "car", "tire", "engine", "robot", "AI",  "skeleton", "movie","truck","train","pasta","i-phone","computer","house","garage","antarctica","pancake","nintendo console","book"]
     var verbs = ["kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "kill", "draw", "sketch"]
     var mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
     var mainverb = verbs[Math.floor(Math.random() * verbs.length)]
@@ -42,19 +42,19 @@ document.getElementById("send").addEventListener('click', function() {
 });
 
 function regenerate(){
-    
-    if(Math.random()<0.5 && input.value.length > 8){
+    let prompt = input.value.toLowerCase()
+    if(Math.random()<0.5 && prompt.length > 8){
         mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
     }
     nouns.forEach(element => {
-        if (input.value.includes(element) && Math.random()<0.9){
+        if (prompt.includes(element) && Math.random()<0.9){
             mainnoun = element
         }
     });
-    if(Math.random()<0.5 && input.value.length > 8){mainverb = verbs[Math.floor(Math.random() * verbs.length)]}
+    if(Math.random()<0.5 && prompt.length > 8){mainverb = verbs[Math.floor(Math.random() * verbs.length)]}
 
     verbs.forEach(element => {
-        if (input.value.includes(element) && Math.random()<0.9){
+        if (prompt.includes(element) && Math.random()<0.9){
             mainverb = element
         }
     });
