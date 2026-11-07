@@ -34,17 +34,19 @@ div {
 <script>
     const box = document.getElementById("main")
     const input = document.getElementById("question")
-    
+    var parity = false
     var lastrobotsentence = "i'm a robot"
     var lasthuman = "ogiewpoirempeowirmperiomksamlkmdfalksmfkdjnniutgrnepiurtiunert"
     var textprompt = "ogiewpoirempeowirmperiomksamlkmdfalksmfkdjnniutgrnepiurtiunert"
     
     var emoji = ["😊","😊","😊", "🐟", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😨", "🥶", "🫃", "🧛", "🍕"]
-    var playerwords = ["electricity","house","garage","antarctica","pancake", "waffle","nintendo console","book"]
+    var sentencelist = []
     var adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly", "nice", "sucpicious"]
     var adjectivesb = ["strange", "weird", "funny", "cool", "silly"]
     var nouns = ["chatbot", "fish", "seaweed", "algae", "plant", "tree", "log", "stick", "wheel", "car", "tire", "engine", "robot", "AI", "explosive", "skeleton", "spooky skeleton", "movie", "youtube video", "meme", "egg", "pasta", "food", "coffee", "energy drink", "sports", "competition", "truck","train","toy train", "train track", "pasta","i-phone","computer", "charger", "electricity","house","garage","antarctica","pancake", "waffle","nintendo console","book", "bee movie script"]
-    var verbs = ["kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "kill", "draw", "sketch", "yell at", "lick"]
+    var verbs = ["kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "draw", "sketch", "yell at", "lick"]
+    var verbsnegative = ["kick", "sell", "damage", "destroy", "make fun of", "yell at", "lick"]
+    var verbspositive = ["buy", "watch", "observe", "see", "build", "purchase", "lick"]
     var mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
     var mainverb = verbs[Math.floor(Math.random() * verbs.length)]
     var append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you", ".", ".", ".", "."]
@@ -69,17 +71,10 @@ function regenerate(){
     lasthuman = textprompt
     textprompt = input.value.toLowerCase()
 
-    console.log(textprompt);
 
-    (textprompt.split(" ")).forEach(element => {
-        if(element.length > 4 && "qwetyuiopafhjklzxcvbnm".includes(element.at(-1))){ // removed a few common adgective/verb endings
-        playerwords = playerwords.concat(element)}
-    });
-    console.log(playerwords);
     if(Math.random()<0.5 && textprompt.length > 5){
         if(nouns.includes(mainnoun)){mainnoun=nouns[nouns.indexOf(mainnoun)+1]}
         mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
-        if(Math.random()<0.5){mainnoun = random(playerwords)}
 
     }
     nouns.forEach(element => {
@@ -87,6 +82,18 @@ function regenerate(){
             mainnoun = element
         }
     });
+    parity = false;
+    textprompt.split(" ").forEach(element => {
+        if(["don't", "not", "anti"].includes(element)){parity=!parity}
+        if(element.length > 3 && "qwertyuiopasdfghjklzxcvbnm".includes(element.at(-1))){
+            if(["like", "dislike", "hate", "enjoy"].includes(sentencelist[-1])){mainnoun =element}
+                if(["dislike", "hate"].includes(sentencelist[-1])){parity=!parity}
+                mainnoun=element
+            sentencelist.push(element)
+        }
+        });
+
+
     if(Math.random()<0.5 && textprompt.length > 8){mainverb = verbs[Math.floor(Math.random() * verbs.length)]}
 
     verbs.forEach(element => {
@@ -140,7 +147,7 @@ function sentence(){
         ["friend", "nuh uh i'm your enemy"],
         ["why not", "Because i said so, don't"],
         ["sudo", "$sudo make me a sandwich"],
-        ["like", "I like destroying "+mainnoun],
+        ["likeqwert", "I "+(parity?"dislike":"like")+ " destroying "+mainnoun],
         ["that is", "you're "+random(adjectives)],
         ["seahorse emoji", "🐟🥀"],
         ["strawberry", "there are 2 \"r\"s in the word strarberry "+random(emoji)],
@@ -166,9 +173,10 @@ function sentence(){
     "You should "+mainverb + " a " + random(adjectives)+" "+mainnoun+ random(append),
     "You should not "+mainverb + " a "+mainnoun+" today.",
     "I don't think you should "+mainverb + " a "+mainnoun+" today.",
+    "Did you know that "+mainnoun+"s are "+(parity?random["annoying", "boring", "weird"]:random["interesting", "cool", "fun", "basically "+random[adjectives], "similar to "+random[nouns]]),
     mainnoun + "s are "+random(adjectives)+"ly "+random(adjectives)+"!",
 
-    "my favorite food is "+ mainnoun+", isn't that "+random(adjectivesb)+"?"
+    "my "+(parity?"least favorite":"favorite") +" food is "+ mainnoun+", isn't that "+random(adjectivesb)+"?"
 
     ]
         if(sentencebool){
