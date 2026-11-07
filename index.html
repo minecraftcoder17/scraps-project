@@ -6,30 +6,33 @@
     <title>Random Sentence Generator</title>
     <style>
 div {
-    border: 2px solid #333;
+    border: 2px solid #010042;
     padding: 10px;
     margin-bottom: 10px;
     max-height: 500px;
     overflow-y: auto;
     border-radius: 8px;
     width: 50%;
+    font-family: monospace, monospace;
 }
     </style>
 </head>
 <body>
 <h1>chatbot</h1>
-<div id="main">Hello! I'm a chatbot</div>
+<div id="main">robot - Hello! I'm a chatbot<br></div>
 <input type="text" name="question" id="question" placeholder="question"><button id="send">send</button>
 
-
+<br><br><br><br>
+This is an entirely local chatbot without any AI.
 <script>
 
 
 
 const box = document.getElementById("main")
 const input = document.getElementById("question")
+var lastrobotsentence = "i'm a robot"
     var playerwords = ["null"]
-    var adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly"]
+    var adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly", "nice", "sucpicious"]
     var adjectivesb = ["strange", "weird", "funny", "cool", "silly"]
     var nouns = ["fish", "seaweed", "algae", "plant", "tree", "log", "stick", "wheel", "car", "tire", "engine", "robot", "AI",  "skeleton", "movie","truck","train","pasta","i-phone","computer","house","garage","antarctica","pancake","nintendo console","book"]
     var verbs = ["kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "kill", "draw", "sketch"]
@@ -84,10 +87,10 @@ function regenerate(){
         }
     });
     append = [", as soon as possible.", " every day.", " before tomorrow.", " before the "+mainnoun+"s can stop you.", ".", ".", ".", "."]
-    box.append("- ")
+    box.append("human - ")
     box.append(input.value)
     box.append(document.createElement("br"))
-    box.append(sentence() + " ")
+    box.append("robot - "+sentence() + " ")
     if(Math.random()<0.1){
         box.append(sentence() + " ")
         box.append(sentence() + " ")
@@ -99,6 +102,14 @@ function regenerate(){
 
 
 function sentence(){
+
+    if(input.value.includes(lastrobotsentence)){
+        if(lastrobotsentence == "stop"){lastrobotsentence = "no seriously stop";return("no seriously stop")}
+        if(lastrobotsentence == "no seriously stop"){box.remove;console.log("rgthgnuo");document.body.innerHTML = "i deleted the chat (stop repeating me)";}
+        lastrobotsentence = "stop"
+        return("stop")
+    }
+
     let hardcoded = [
         ["hello", "hi"],
         ["friend", "nuh uh i'm your enemy"],
@@ -111,7 +122,7 @@ function sentence(){
     let sentencebool = false
     let issentence = ""
     hardcoded.forEach(element => {
-        if (input.value.includes(element[0]) && Math.random()<0.9){
+        if (input.value.toLowerCase().includes(element[0]) && Math.random()<0.9){
             issentence = element[1]
             sentencebool=true
             console.log(element)
@@ -123,13 +134,16 @@ function sentence(){
     "You should "+mainverb + " a " + random(adjectives)+" "+mainnoun+ random(append),
     "You should not "+mainverb + " a "+mainnoun+" today.",
     "I don't think you should "+mainverb + " a "+mainnoun+" today.",
-    mainverb + "ing is fun!",
+    mainnoun + "s are "+random(adjectives)+"ly "+random(adjectives)+"!",
+
     "my favorite food is "+ mainnoun+", isn't that "+random(adjectivesb)+"?"
 
     ]
         if(sentencebool){
-            return(issentence)}else{
-    return(random(sentences))}
+            lastrobotsentence=issentence}else{
+    lastrobotsentence=(random(sentences))}    
+            return(lastrobotsentence)
+
 }
 
 function noun(){
