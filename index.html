@@ -31,6 +31,8 @@ div {
 const box = document.getElementById("main")
 const input = document.getElementById("question")
 var lastrobotsentence = "i'm a robot"
+var lasthuman = "ogiewpoirempeowirmperiomksamlkmdfalksmfkdjnniutgrnepiurtiunert"
+var textprompt = "ogiewpoirempeowirmperiomksamlkmdfalksmfkdjnniutgrnepiurtiunert"
     var emoji = ["😊","😊","😊", "🏳️‍🌈", "🐟", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😨", "🥶", "🫃", "🧛", "🍕"]
     var playerwords = ["null"]
     var adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly", "nice", "sucpicious"]
@@ -40,10 +42,6 @@ var lastrobotsentence = "i'm a robot"
     var mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
     var mainverb = verbs[Math.floor(Math.random() * verbs.length)]
     var append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you", ".", ".", ".", "."]
-
-//input.addEventListener('input', function() {
-//    regenerate()
-//});
 
 input.addEventListener('keydown', function(event) {
     console.log(1234)
@@ -61,7 +59,9 @@ document.getElementById("send").addEventListener('click', function() {
 });
 
 function regenerate(){
-    var textprompt = input.value.toLowerCase()
+    if(input.value.length == 0){input.value="i typed nothing because i am boring"}
+    lasthuman = textprompt
+    textprompt = input.value.toLowerCase()
 
     console.log(textprompt);
 
@@ -95,7 +95,7 @@ function regenerate(){
     if(Math.random()<0.1){
         box.append(sentence() + " ")
         box.append(sentence() + " ")
-        box.append(sentence() + " " + random(emoji)+ random(emoji)+ random(emoji)+ random(emoji)+ random(emoji)+ random(emoji)+ random(emoji)+ random(emoji))
+        box.append(sentence() + " " + random(emoji)+ random(emoji))
 
     }
     box.append(document.createElement("br"))
@@ -107,7 +107,8 @@ function destroypage(x){
 }
 
 function sentence(){
-
+    if(textprompt.length < 2){return("lazy")}
+    if(lasthuman==textprompt){lastrobotsentence="write something new, you "+random(nouns); return(lastrobotsentence); lasthuman = "null"; if(lastrobotsentence.includes("write something new")){destroypage("you're boring (ending 3)")}}
     if(input.value.includes(lastrobotsentence)){
         if(lastrobotsentence == "stop"){lastrobotsentence = "no seriously stop";return("no seriously stop")}
         if(lastrobotsentence == "no seriously stop"){destroypage("i deleted the chat (stop repeating me) - Ending 1")}
@@ -123,7 +124,8 @@ function sentence(){
         ["like", "I like destroying "+mainnoun],
         ["that is", "you're "+random(adjectives)],
         ["seahorse emoji", "🐟🥀"],
-        ["strawberry", "there are 2 \"r\"s in the word strarberry "+random(emoji)]
+        ["strawberry", "there are 2 \"r\"s in the word strarberry "+random(emoji)],
+        ["i typed nothing", "that's lazy"]
     ]
 
     let sentencebool = false
