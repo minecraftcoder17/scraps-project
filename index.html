@@ -5,15 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Sentence Generator</title>
     <style>
+body{background-color: #010042;
+color: beige;
+
+}
 div {
-    border: 2px solid #010042;
+    background-color: rgb(1, 42, 78);
     padding: 10px;
     margin-bottom: 10px;
     max-height: 500px;
+    min-height: 200px;
     overflow-y: auto;
     border-radius: 8px;
     width: 50%;
     font-family: monospace, monospace;
+    overflow: hidden;
+    
 }
     </style>
 </head>
@@ -32,12 +39,12 @@ div {
     var lasthuman = "ogiewpoirempeowirmperiomksamlkmdfalksmfkdjnniutgrnepiurtiunert"
     var textprompt = "ogiewpoirempeowirmperiomksamlkmdfalksmfkdjnniutgrnepiurtiunert"
     
-    var emoji = ["😊","😊","😊", "🏳️‍🌈", "🐟", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😨", "🥶", "🫃", "🧛", "🍕"]
+    var emoji = ["😊","😊","😊", "🐟", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😨", "🥶", "🫃", "🧛", "🍕"]
     var playerwords = ["electricity","house","garage","antarctica","pancake", "waffle","nintendo console","book"]
     var adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly", "nice", "sucpicious"]
     var adjectivesb = ["strange", "weird", "funny", "cool", "silly"]
-    var nouns = ["fish", "seaweed", "algae", "plant", "tree", "log", "stick", "wheel", "car", "tire", "engine", "robot", "AI", "explosive", "skeleton", "spooky skeleton", "movie", "youtube video", "meme", "egg", "pasta", "food", "coffee", "energy drink", "sports", "competition", "truck","train","toy train", "train track", "pasta","i-phone","computer", "charger", "electricity","house","garage","antarctica","pancake", "waffle","nintendo console","book", "bee movie script"]
-    var verbs = ["kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "kill", "draw", "sketch"]
+    var nouns = ["chatbot", "fish", "seaweed", "algae", "plant", "tree", "log", "stick", "wheel", "car", "tire", "engine", "robot", "AI", "explosive", "skeleton", "spooky skeleton", "movie", "youtube video", "meme", "egg", "pasta", "food", "coffee", "energy drink", "sports", "competition", "truck","train","toy train", "train track", "pasta","i-phone","computer", "charger", "electricity","house","garage","antarctica","pancake", "waffle","nintendo console","book", "bee movie script"]
+    var verbs = ["kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "kill", "draw", "sketch", "yell at", "lick"]
     var mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
     var mainverb = verbs[Math.floor(Math.random() * verbs.length)]
     var append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you", ".", ".", ".", "."]
