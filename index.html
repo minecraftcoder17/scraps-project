@@ -33,7 +33,7 @@ div {
     var textprompt = "ogiewpoirempeowirmperiomksamlkmdfalksmfkdjnniutgrnepiurtiunert"
     
     var emoji = ["😊","😊","😊", "🏳️‍🌈", "🐟", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😨", "🥶", "🫃", "🧛", "🍕"]
-    var playerwords = ["null"]
+    var playerwords = ["electricity","house","garage","antarctica","pancake", "waffle","nintendo console","book"]
     var adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly", "nice", "sucpicious"]
     var adjectivesb = ["strange", "weird", "funny", "cool", "silly"]
     var nouns = ["fish", "seaweed", "algae", "plant", "tree", "log", "stick", "wheel", "car", "tire", "engine", "robot", "AI", "explosive", "skeleton", "spooky skeleton", "movie", "youtube video", "meme", "egg", "pasta", "food", "coffee", "energy drink", "sports", "competition", "truck","train","toy train", "train track", "pasta","i-phone","computer", "charger", "electricity","house","garage","antarctica","pancake", "waffle","nintendo console","book", "bee movie script"]
@@ -116,17 +116,17 @@ function sentence(){
         return("stop")
     }
 
-if(lastrobotsentence.includes("What do you")&&(textprompt.includes("?")||textprompt.includes("what"))){
+    if(textprompt.includes("+")||lastrobotsentence.includes("What do you")&&(textprompt.includes("?")||textprompt.includes("what"))){
 
-    if(textprompt.includes("+")){return("The answer is "+String(textprompt.length)+"! Hope that helps!");} else{return("The answer is \""+random(nouns)+"\"! Hope that helps!")}
+        if(textprompt.includes("+")){return("The answer is "+String(textprompt.length)+"! Hope that helps!");} else{return("The answer is \""+random(nouns)+"\"! Hope that helps!")}
 
-}
+    }
 
-if(lastrobotsentence.includes("Hope that helps")&&(textprompt.includes("thanks")||textprompt.includes("what"))){
+    if(lastrobotsentence.includes("Hope that helps")&&(textprompt.includes("thanks")||textprompt.includes("what"))){
 
-    return("jk i lied")
+        return("jk i lied")
 
-}
+    }
 
     let hardcoded = [
         ["hello", "hi"],
