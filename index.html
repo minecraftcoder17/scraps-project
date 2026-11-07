@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Sentence Generator</title>
+    <style>
+div {
+    border: 2px solid #333;
+    padding: 10px;
+    margin-bottom: 10px;
+    max-height: 500px;
+    overflow-y: auto;
+    border-radius: 8px;
+    width: 50%;
+}
+    </style>
 </head>
 <body>
-<div id="main"></div>
+<h1>chatbot</h1>
+<div id="main">Hello! I'm a chatbot</div>
 <input type="text" name="question" id="question" placeholder="question"><button id="send">send</button>
 
 
@@ -34,27 +46,40 @@ input.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         regenerate()
     input.value=""
+        box.scrollTo({ top: box.scrollHeight, behavior: 'smooth' });
+
 }})
 document.getElementById("send").addEventListener('click', function() {
     regenerate()
 
     input.value=""
+    box.scrollTo({ top: box.scrollHeight, behavior: 'smooth' });
 });
 
 function regenerate(){
-    let prompt = input.value.toLowerCase()
-    if(Math.random()<0.5 && prompt.length > 8){
+    var textprompt = input.value.toLowerCase()
+
+    console.log(textprompt);
+
+    (textprompt.split(" ")).forEach(element => {
+        if(element.length > 5 && "qwetyuiopafhjklzxcvbnm".includes(element.at(-1))){ // removed a few common adgective/verb endings
+        playerwords = playerwords.concat(element)}
+    });
+    console.log(playerwords);
+    if(Math.random()<0.5 && textprompt.length > 8){
         mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
+        if(Math.random()<0.5){mainnoun = random(playerwords)}
+
     }
     nouns.forEach(element => {
-        if (prompt.includes(element) && Math.random()<0.9){
+        if (textprompt.includes(element) && Math.random()<0.9){
             mainnoun = element
         }
     });
-    if(Math.random()<0.5 && prompt.length > 8){mainverb = verbs[Math.floor(Math.random() * verbs.length)]}
+    if(Math.random()<0.5 && textprompt.length > 8){mainverb = verbs[Math.floor(Math.random() * verbs.length)]}
 
     verbs.forEach(element => {
-        if (prompt.includes(element) && Math.random()<0.9){
+        if (textprompt.includes(element) && Math.random()<0.9){
             mainverb = element
         }
     });
@@ -77,7 +102,7 @@ function sentence(){
     let hardcoded = [
         ["hello", "hi"],
         ["friend", "nuh uh i'm your enemy"],
-        ["why not", "because i said so, don't"],
+        ["why not", "Because i said so, don't"],
         ["sudo", "$sudo make me a sandwich"],
         ["like", "I like destroying "+mainnoun],
         ["that is", "you're "+random(adjectives)]
