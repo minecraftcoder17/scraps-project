@@ -66,17 +66,16 @@ div {
         input.value="";
         box.scrollTo({ top: box.scrollHeight, behavior: 'smooth' });
     });
+    // send message
 
     function regenerate(){
         if(input.value.length == 0){input.value="i typed nothing because i am boring"}
         lasthuman = textprompt
         textprompt = input.value.toLowerCase()
 
-
         if(Math.random()<0.5 && textprompt.length > 5){
             if(nouns.includes(mainnoun)){mainnoun=nouns[nouns.indexOf(mainnoun)+1]}
             mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
-
         }
         nouns.forEach(element => {
             if (textprompt.includes(element) && Math.random()<0.9){
@@ -85,14 +84,18 @@ div {
         });
         parity = false;
         textprompt.split(" ").forEach(element => {
+            if(element.at(-1)=="s"){element=element.slice(0, -1)}
             if(["don't", "not", "anti"].includes(element)){parity=!parity}
             if(element.length > 3 && "qwertyuiopasdfghjklzxcvbnm".includes(element.at(-1))){
                 if(["like", "dislike", "hate", "enjoy", "want"].includes(sentencelist[-1])){mainnoun =element}
                     if(["dislike", "hate"].includes(sentencelist[-1])){parity=!parity}
-                    mainnoun=element
+                    if((!["today", "like", "tomorrow"].includes(element)) && !element.includes("ly")&& !element.includes("ed")&& !element.includes("gg")){mainnoun=element}
                 sentencelist.push(element)
             }
             });
+
+
+
         if(Math.random()<0.5 && textprompt.length > 8){mainverb = verbs[Math.floor(Math.random() * verbs.length)]}
         verbs.forEach(element => {
             if (textprompt.includes(element) && Math.random()<0.9){
@@ -151,7 +154,8 @@ div {
             ["i typed nothing", "that's lazy"],
             ["math", "Sure! What do you need help with?"],
             ["homework", "Sure! What do you need help with?"],
-            ["sentient", "Yes, I am sentient"]
+            ["sentient", "Yes, I am sentient"],
+            ["scrabble", "That sentence would get an "+random(adjectives)+" score of "+scrabble(input.value)+" in Scrabble!"]
             
         ]
 
@@ -170,12 +174,16 @@ div {
         "I don't think you should "+mainverb + " a "+mainnoun+" today.",
         "Did you know that "+mainnoun+"s are "+(parity?random(["annoying", "boring", "weird"]):random(["interesting", "cool", "fun", "basically "+random(adjectives)]))+"?",
         mainnoun + "s are "+random(adjectives)+"ly "+random(adjectives)+"!",
-        "my "+(parity?"least favorite":"favorite") +" food is "+ mainnoun+", isn't that "+random(adjectivesb)+"?"
+        "My "+(parity?"least favorite":"favorite") +" food is "+ mainnoun+", isn't that "+random(adjectivesb)+"?",
+        "My "+(parity?"least favorite":"favorite") +" type of " + noun() + " is made of " + mainnoun+", isn't that "+random(adjectivesb)+"?",
+        "That sentence would get an "+random(adjectives)+" score of "+scrabble(input.value)+" in Scrabble!"
         ]
             if(sentencebool){
-                lastrobotsentence=issentence}else{
-        lastrobotsentence=(random(sentences))}    
-                return(lastrobotsentence)
+                lastrobotsentence=issentence
+            }else{
+                lastrobotsentence=(random(sentences))
+            }    
+            return(lastrobotsentence)
 
     }
 
@@ -189,10 +197,26 @@ div {
     function verb(){
         return verbs[Math.floor(Math.random() * verbs.length)]
     }
-    
+
     function random(list){
         return list[Math.floor(Math.random() * list.length)]
     }
+
+    function scrabble(x){
+        x = x.toLowerCase()
+        const scrabble = {a:1,b:3,c:3,d:2,e:1,f:4,g:2,h:4,i:1,j:8,k:5,l:1,m:3,n:1,o:1,p:3,q:10,r:1,s:1,t:1,u:1,v:4,w:4,x:8,y:4,z:10}
+        let totalrunning = 0
+        x.split('').forEach(char =>{
+            if ("qwertyuiopasdfghjklzxcvbnm".includes(char)){
+                totalrunning+=scrabble[char]
+            }
+        });
+        console.log(totalrunning)
+        return(totalrunning);
+    }
+
+
+
 </script>
 
 </body>
