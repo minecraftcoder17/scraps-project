@@ -83,11 +83,16 @@ button{
     // send message
 
     function regenerate(){
+
         if(input.value.length == 0){input.value="i typed nothing because i am boring"}
         if(input.value == "sudo rm -rf"){input.value="nice try lol"}
         lasthuman = textprompt
         textprompt = input.value.toLowerCase()
 
+        if(Math.random()<0.2 && sentencelist.length > 5){
+            textprompt = random(sentencelist)+" "+random(sentencelist)+" "+random(sentencelist)+" "+random(sentencelist)+" "+random(sentencelist)+" "+random(sentencelist)
+        }
+    
         if(Math.random()<0.5 && textprompt.length > 5){
             if(nouns.includes(mainnoun)){mainnoun=nouns[nouns.indexOf(mainnoun)+1]}
             mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
@@ -101,17 +106,21 @@ button{
                 if(["like", "dislike", "hate", "enjoy", "want"].includes(sentencelist[-1])){mainnoun =element}
                     if(["dislike", "hate"].includes(sentencelist[-1])){parity=!parity}
                     if((!["today", "like", "tomorrow"].includes(element)) && !element.includes("ly")&& !element.includes("ed")&& !element.includes("gg") && !element.includes("ful") && !verbs.includes(element) && !adjectives.includes(element)){mainnoun=element}
-                sentencelist.push(element)
             }
+                sentencelist.push(element)
             });
-
+            
+            if(Math.random()<0.2){
+                textprompt = sentencelist.slice(sentencelist.length-5).join(" ")
+            }
+        console.log(sentencelist)
         nouns.forEach(element => {
             if (textprompt.includes(element) && Math.random()<0.9){
                 mainnoun = element
             }
         });
 
-        if (textprompt.includes("you ")&&textprompt.includes("why")){
+        if (textprompt.includes("you ")&&(textprompt.includes("why")||textprompt.includes("are you"))){
             mainnoun = "I"
         }
 
