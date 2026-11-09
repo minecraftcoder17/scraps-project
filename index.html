@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Sentence Generator</title>
+    <title>Pseudo-chatbot</title>
     <style>
-body{background-color: #010042;
+body{background-color: #000000;
 color: beige;
 
 }
 div {
-    background-color: rgb(1, 42, 78);
+    background-color: rgb(60, 12, 105);
     padding: 10px;
     margin-bottom: 10px;
     max-height: 500px;
@@ -19,15 +19,31 @@ div {
     border-radius: 8px;
     width: 50%;
     font-family: monospace, monospace;
-    overflow: hidden;
-    
+    overflow: hidden; 
 }
+
+input{
+
+    background-color: rgb(255, 221, 147);
+    padding: 10px;
+    border-radius: 5px;
+    border-color: rgb(12, 7, 0);
+}
+
+button{
+
+    background-color: rgb(211, 211, 211);
+    padding: 10px;
+    border-radius: 5px;
+    border-color: rgb(0, 0, 0);
+}
+
     </style>
 </head>
 <body>
 <h1>chatbot</h1>
 <div id="main">robot - Hello! I'm a chatbot 😎<br></div>
-<input type="text" name="question" id="question" placeholder="question"><button id="send">send</button>
+<input type="text" name="question" id="question" placeholder="Write a prompt"><button id="send">Enter</button>
 
 <br><br><br><br>
  
@@ -47,7 +63,7 @@ div {
     var adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly", "nice", "sucpicious"]
     var adjectivesb = ["strange", "weird", "funny", "cool", "silly"]
     var nouns = ["chatbot", "fish", "seaweed", "algae", "plant", "tree", "log", "stick", "wheel", "car", "tire", "engine", "robot", "AI", "explosive", "skeleton", "spooky skeleton", "movie", "youtube video", "meme", "egg", "pasta", "food", "coffee", "energy drink", "sports", "competition", "truck","train","toy train", "train track", "pasta","i-phone","computer", "charger", "electricity","house","garage","antarctica","pancake", "waffle","nintendo console","book", "bee movie script"]
-    var verbs = ["kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "draw", "sketch", "yell at", "lick"]
+    var verbs = ["taste", "kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "draw", "sketch", "yell at", "lick"]
     var verbsnegative = ["kick", "sell", "damage", "destroy", "make fun of", "yell at", "lick"]
     var verbspositive = ["buy", "watch", "observe", "see", "build", "purchase", "lick"]
     var mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
@@ -89,7 +105,7 @@ div {
             if(element.length > 3 && "qwertyuiopasdfghjklzxcvbnm".includes(element.at(-1))){
                 if(["like", "dislike", "hate", "enjoy", "want"].includes(sentencelist[-1])){mainnoun =element}
                     if(["dislike", "hate"].includes(sentencelist[-1])){parity=!parity}
-                    if((!["today", "like", "tomorrow"].includes(element)) && !element.includes("ly")&& !element.includes("ed")&& !element.includes("gg")){mainnoun=element}
+                    if((!["today", "like", "tomorrow"].includes(element)) && !element.includes("ly")&& !element.includes("ed")&& !element.includes("gg") && !element.includes("ful") && !verbs.includes(element) && !adjectives.includes(element)){mainnoun=element}
                 sentencelist.push(element)
             }
             });
@@ -150,24 +166,26 @@ div {
             ["likeqwert", "I "+(parity?"dislike":"like")+ " destroying "+mainnoun],
             ["that is", "you're "+random(adjectives)],
             ["seahorse emoji", "🐟🥀"],
+            ["emoji",random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)+random(emoji)],  
             ["strawberry", "there are 2 \"r\"s in the word strarberry "+random(emoji)],
             ["i typed nothing", "that's lazy"],
             ["math", "Sure! What do you need help with?"],
             ["homework", "Sure! What do you need help with?"],
             ["sentient", "Yes, I am sentient"],
-            ["scrabble", "That sentence would get an "+random(adjectives)+" score of "+scrabble(input.value)+" in Scrabble!"]
+            ["scrabble", "That sentence would get an "+random(adjectives)+" score of "+scrabble(input.value)+" in Scrabble!"],
+            ["favorite", "My favorite "+mainnoun+" is a "+random(adjectives)+" "+noun()+"!"]
             
         ]
 
         let sentencebool = false
         let issentence = ""
         hardcoded.forEach(element => {
+            if(/^[a-zA-Z]+$/.test(element)){
             if (input.value.toLowerCase().includes(element[0]) && Math.random()<0.9){
                 issentence = element[1]
                 sentencebool=true
-                console.log(element)
             }
-        })
+        }})
         let sentences = [
         "You should "+mainverb + " a " + random(adjectives)+" "+mainnoun+ random(append),
         "You should not "+mainverb + " a "+mainnoun+" today.",
@@ -211,7 +229,6 @@ div {
                 totalrunning+=scrabble[char]
             }
         });
-        console.log(totalrunning)
         return(totalrunning);
     }
 
