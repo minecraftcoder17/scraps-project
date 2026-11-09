@@ -173,6 +173,7 @@ button{
             return("jk i lied")
 
         }
+        
 
         let hardcoded = [
             ["hello", "hi"],
@@ -231,6 +232,8 @@ button{
             if(sentencebool){
                 lastrobotsentence=issentence
             }else{
+                if (Math.random()<0.4){return(customsentence("I L to V Ns"))
+            }
                 lastrobotsentence=(random(sentences))
             }    
             return(lastrobotsentence)}
@@ -262,6 +265,35 @@ button{
             }
         });
         return(totalrunning);
+    }
+
+
+    function customsentence(x){
+        let sentencecustom = "";
+            x.split('').forEach(char => {
+                if(char=="N"){
+                   sentencecustom += mainnoun 
+                } else if(char=="V"){
+                   sentencecustom += random(verbs)
+                } else if(char=="A"){
+                   sentencecustom += random(adjectives)
+                } else if(char=="Y"){
+                   sentencecustom += "you"
+                } else if(char=="!"){
+                   sentencecustom += "don't"
+                } else if(char=="I"){
+                   sentencecustom += "I"
+                } else if(char=="L"){
+                   sentencecustom += "like"
+                } else if(char=="&"){
+                   sentencecustom += "and"
+                } else if(char=="&"){
+                   sentencecustom += "to"
+                } else {
+                   sentencecustom += char
+                }
+            });
+        return(sentencecustom);
     }
 
 
