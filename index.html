@@ -6,9 +6,7 @@
     <title>Pseudo-chatbot</title>
     <style>
 body{background-color: #000000;
-color: beige;
-
-}
+color: beige;}
 div {
     background-color: rgb(60, 12, 105);
     padding: 10px;
@@ -58,14 +56,14 @@ button{
     var lasthuman = "ogiewpoirempeowirmperiomksamlkmdfalksmfkdjnniutgrnepiurtiunert"
     var textprompt = "ogiewpoirempeowirmperiomksamlkmdfalksmfkdjnniutgrnepiurtiunert"
     
-    var emoji = ["😊","😊","😊", "🐟", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😨", "🥶", "🫃", "🧛", "🍕"]
+    const emoji = ["😊","😊","😊", "🐟", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😨", "🥶", "🫃", "🧛", "🍕"]
     var sentencelist = []
-    var adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly", "nice", "sucpicious"]
-    var adjectivesb = ["strange", "weird", "funny", "cool", "silly"]
-    var nouns = ["chatbot", "fish", "seaweed", "algae", "plant", "tree", "log", "stick", "wheel", "car", "tire", "engine", "robot", "AI", "explosive", "skeleton", "spooky skeleton", "movie", "youtube video", "meme", "egg", "pasta", "food", "coffee", "energy drink", "sports", "competition", "truck","train","toy train", "train track", "pasta","i-phone","computer", "charger", "electricity","house","garage","antarctica","pancake", "waffle","nintendo console","book", "bee movie script"]
-    var verbs = ["taste", "kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "draw", "sketch", "yell at", "lick"]
-    var verbsnegative = ["kick", "sell", "damage", "destroy", "make fun of", "yell at", "lick"]
-    var verbspositive = ["buy", "watch", "observe", "see", "build", "purchase", "lick"]
+    const adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly", "nice", "sucpicious"]
+    const adjectivesb = ["strange", "weird", "funny", "cool", "silly"]
+    const nouns = ["chatbot", "fish", "seaweed", "algae", "plant", "tree", "log", "stick", "wheel", "car", "tire", "engine", "robot", "AI", "explosive", "skeleton", "spooky skeleton", "movie", "youtube video", "meme", "egg", "pasta", "food", "coffee", "energy drink", "sports", "competition", "truck","train","toy train", "train track", "pasta","i-phone","computer", "charger", "electricity","house","garage","antarctica","pancake", "waffle","nintendo console","book", "bee movie script"]
+    const verbs = ["taste", "kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "draw", "sketch", "yell at", "lick"]
+    const verbsnegative = ["kick", "sell", "damage", "destroy", "make fun of", "yell at", "lick"]
+    const verbspositive = ["buy", "watch", "observe", "see", "build", "purchase", "lick"]
     var mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
     var mainverb = verbs[Math.floor(Math.random() * verbs.length)]
     var append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you", ".", ".", ".", "."]
@@ -86,6 +84,7 @@ button{
 
     function regenerate(){
         if(input.value.length == 0){input.value="i typed nothing because i am boring"}
+        if(input.value == "sudo rm -rf"){input.value="nice try lol"}
         lasthuman = textprompt
         textprompt = input.value.toLowerCase()
 
@@ -93,11 +92,7 @@ button{
             if(nouns.includes(mainnoun)){mainnoun=nouns[nouns.indexOf(mainnoun)+1]}
             mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
         }
-        nouns.forEach(element => {
-            if (textprompt.includes(element) && Math.random()<0.9){
-                mainnoun = element
-            }
-        });
+
         parity = false;
         textprompt.split(" ").forEach(element => {
             if(element.at(-1)=="s"){element=element.slice(0, -1)}
@@ -110,7 +105,15 @@ button{
             }
             });
 
+        nouns.forEach(element => {
+            if (textprompt.includes(element) && Math.random()<0.9){
+                mainnoun = element
+            }
+        });
 
+        if (textprompt.includes("you ")&&textprompt.includes("why")){
+            mainnoun = "I"
+        }
 
         if(Math.random()<0.5 && textprompt.length > 8){mainverb = verbs[Math.floor(Math.random() * verbs.length)]}
         verbs.forEach(element => {
@@ -129,7 +132,7 @@ button{
             box.append(sentence() + " " + random(emoji)+ random(emoji))
         }
         box.append(document.createElement("br"))
-        if(input.value.toLowerCase().includes("seahorse emoji")){destroypage("🐟🥀🐟🐟🌲🌳🌴🐟🐟🐟🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🌳🌴🐟🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🧜‍♂️🧜‍♀️🪼🦐🦐🦐🦐🐟🐟🧜🦐🦐🦐🦐🦐🪸🪸🪸🪸🦐🦐🪸🪸🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🦐🦐🦐🦐🦐🪸🪸🪸🪸🦐🦐🪸🪸🪸🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🪸🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🪸🪸🪸🪸 - Ending 2")}
+        if(textprompt.includes("seahorse emoji")){destroypage("🐟🥀🐟🐟🌲🌳🌴🐟🐟🐟🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🌳🌴🐟🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🧜‍♂️🧜‍♀️🪼🦐🦐🦐🦐🐟🐟🧜🦐🦐🦐🦐🦐🪸🪸🪸🪸🦐🦐🪸🪸🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🦐🦐🦐🦐🦐🪸🪸🪸🪸🦐🦐🪸🪸🪸🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🪸🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🪸🪸🪸🪸 - Ending 2")}
     }
 
     function destroypage(x){
@@ -173,19 +176,19 @@ button{
             ["homework", "Sure! What do you need help with?"],
             ["sentient", "Yes, I am sentient"],
             ["scrabble", "That sentence would get an "+random(adjectives)+" score of "+scrabble(input.value)+" in Scrabble!"],
-            ["favorite", "My favorite "+mainnoun+" is a "+random(adjectives)+" "+noun()+"!"]
+            ["favorite", "My favorite "+mainnoun+" is a "+random(adjectives)+" "+noun()+"!"],
+            ["incorrect", "You're absolutely correct! The claim that "+ lastrobotsentence + " is entirely inaccurate."]
             
         ]
 
         let sentencebool = false
         let issentence = ""
         hardcoded.forEach(element => {
-            if(/^[a-zA-Z]+$/.test(element)){
-            if (input.value.toLowerCase().includes(element[0]) && Math.random()<0.9){
+            if (textprompt.includes(element[0]) && Math.random()<0.9){
                 issentence = element[1]
                 sentencebool=true
             }
-        }})
+        })
         let sentences = [
         "You should "+mainverb + " a " + random(adjectives)+" "+mainnoun+ random(append),
         "You should not "+mainverb + " a "+mainnoun+" today.",
@@ -196,12 +199,28 @@ button{
         "My "+(parity?"least favorite":"favorite") +" type of " + noun() + " is made of " + mainnoun+", isn't that "+random(adjectivesb)+"?",
         "That sentence would get an "+random(adjectives)+" score of "+scrabble(input.value)+" in Scrabble!"
         ]
+        let questions = [
+        "It is absolutely "+(parity?"false":"true")+" that " + mainnoun+" do that!",
+        "It is absolutely "+(parity?"false":"true")+" that " + mainnoun+" do that!",
+        
+        "The "+random(adjectives)+" question is, why don't" + input.value.substring(6),
+        "Because " + mainnoun+" are just "+random(adjectives)
+
+        ]
+        if (textprompt.includes("why")){
+            if(sentencebool){
+                lastrobotsentence=issentence
+            }else{
+                lastrobotsentence=(random(questions))
+            }    
+            return(lastrobotsentence)
+        }else{
             if(sentencebool){
                 lastrobotsentence=issentence
             }else{
                 lastrobotsentence=(random(sentences))
             }    
-            return(lastrobotsentence)
+            return(lastrobotsentence)}
 
     }
 
