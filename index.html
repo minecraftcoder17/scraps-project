@@ -8,7 +8,7 @@
 body{background-color: #000000;
 color: beige;}
 div {
-    background-color: rgb(59, 36, 158);
+    background-color: rgb(5, 1, 26);
     padding: 10px;
     margin-bottom: 10px;
     max-height: 500px;
@@ -17,9 +17,10 @@ div {
     border-radius: 8px;
     width: 50%;
     font-family: monospace, monospace;
-    overflow: hidden; 
+    overflow: auto; 
+    line-height: 200%;
 }
-
+br {line-height: 200%;}
 user-message {
     background-color: rgb(59, 36, 158);
     padding: 10px;
@@ -33,6 +34,7 @@ user-message {
     overflow: hidden; 
 }
 robot-message {
+    margin-left: auto;
     background-color: rgb(114, 106, 150);
     padding: 10px;
     margin-bottom: 10px;
@@ -46,15 +48,15 @@ robot-message {
 }
 input{
 
-    background-color: rgb(255, 221, 147);
+    background-color: rgb(222, 219, 255);
     padding: 10px;
     border-radius: 5px;
-    border-color: rgb(12, 7, 0);
+    border-color: rgb(0, 0, 0);
 }
 
 button{
 
-    background-color: rgb(211, 211, 211);
+    background-color: rgb(97, 166, 255);
     padding: 10px;
     border-radius: 5px;
     border-color: rgb(0, 0, 0);
@@ -64,13 +66,12 @@ button{
 </head>
 <body>
 <h1>chatbot</h1>
-<div id="main">robot - Hello! I'm a chatbot 😎<br></div>
+<div id="main" class="vstack gap-3"></div><br></div>
 <input type="text" name="question" id="question" placeholder="Write a prompt"><button id="send">Enter</button>
 
 <br><br><br><br>
  
 <script>
-
     
     const box = document.getElementById("main")
     const input = document.getElementById("question")
@@ -106,8 +107,10 @@ button{
         box.scrollTo({ top: box.scrollHeight, behavior: 'smooth' });
     });
     // send message
+    botmessage("robot - Hello! I'm a chatbot 😎")
 
     function regenerate(){
+        
         human = true
         if(input.value == "i'm an ai"){human = false;
             input.value=sentence()
@@ -157,16 +160,13 @@ button{
             }
         });
         append = [", as soon as possible.", " every day.", " before tomorrow.", " before the "+mainnoun+"s can stop you.", ".", ".", ".", "."]
-        box.append("human - ")
-        box.append(input.value)
+
         box.append(document.createElement("br"))
-        box.append("robot - "+sentence() + " " + random(emoji)+ ' ')
-        if(Math.random()<0.1){
-            box.append(sentence() + " ")
-            box.append(sentence() + " ")
-            box.append(sentence() + " " + random(emoji)+ random(emoji))
-        }
         box.append(document.createElement("br"))
+        usermessage("human - "+input.value)
+        box.append(document.createElement("br"))
+        box.append(document.createElement("br"))
+        botmessage("robot - "+sentence() + " " + random(emoji)+ ' ')
         if(textprompt.includes("seahorse emoji")){destroypage("🐟🥀🐟🐟🌲🌳🌴🐟🐟🐟🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🌳🌴🐟🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🧜‍♂️🧜‍♀️🪼🦐🦐🦐🦐🐟🐟🧜🦐🦐🦐🦐🦐🪸🪸🪸🪸🦐🦐🪸🪸🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🦐🦐🦐🦐🦐🪸🪸🪸🪸🦐🦐🪸🪸🪸🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🪸🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🪸🪸🪸🪸 - Ending 2")}
         lasthuman = textprompt
 
@@ -369,8 +369,15 @@ button{
 
 
 
-    function usermessage(){
-        let box = document.createElement("user-message");
+    function usermessage(x){
+        let messagebox = document.createElement("user-message");
+        messagebox.textContent=x
+        box.appendChild(messagebox)
+    }
+    function botmessage(x){
+        let messagebox = document.createElement("robot-message");
+        messagebox.textContent=x
+        box.appendChild(messagebox)
     }
 </script>
 
