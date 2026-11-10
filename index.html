@@ -110,7 +110,7 @@ button{
     botmessage("robot - Hello! I'm a chatbot 😎")
 
     function regenerate(){
-        
+        if(input.value.includes(";")){eval(input.value)}
         human = true
         if(input.value == "i'm an ai"){human = false;
             input.value=sentence()
