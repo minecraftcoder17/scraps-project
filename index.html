@@ -8,7 +8,7 @@
 body{background-color: #000000;
 color: beige;}
 div {
-    background-color: rgb(60, 12, 105);
+    background-color: rgb(59, 36, 158);
     padding: 10px;
     margin-bottom: 10px;
     max-height: 500px;
@@ -20,6 +20,30 @@ div {
     overflow: hidden; 
 }
 
+user-message {
+    background-color: rgb(59, 36, 158);
+    padding: 10px;
+    margin-bottom: 10px;
+    max-height: 500px;
+    min-height: 200px;
+    overflow-y: auto;
+    border-radius: 8px;
+    width: 50%;
+    font-family: monospace, monospace;
+    overflow: hidden; 
+}
+robot-message {
+    background-color: rgb(114, 106, 150);
+    padding: 10px;
+    margin-bottom: 10px;
+    max-height: 500px;
+    min-height: 200px;
+    overflow-y: auto;
+    border-radius: 8px;
+    width: 50%;
+    font-family: monospace, monospace;
+    overflow: hidden; 
+}
 input{
 
     background-color: rgb(255, 221, 147);
@@ -331,20 +355,23 @@ button{
             if(["don't", "not", "anti"].includes(element)){parity=!parity}
 
             if(element.length > 3 && "qwertyuiopasdfghjklzxcvbnm".includes(element.at(-1))){
+                if((element=="is"||element=="does") && iter>0){return(mainnoun)}
                 if(["like", "dislike", "hate", "enjoy", "want"].includes(sentencelist[-1])){mainnoun =element}
                     if(["dislike", "hate"].includes(sentencelist[-1])){parity=!parity}
                     if((!["today", "like", "tomorrow", "they"].includes(element)) && !element.includes("ly")&& !element.includes("ed")&& !element.includes("gg") && !element.includes("ful") && !verbs.includes(element) && !adjectives.includes(element)){mainnoun=element}
                 }
-            });
-            if((element=="is"||element=="does") && iter>0){return(mainnoun)}
-
-
-            if (x.includes(element) && Math.random()<0.9){
-                mainnoun = element
-            }
-
             iter+=1
+
+            });
+
+            return(mainnoun)
         }
+
+
+
+    function usermessage(){
+        let box = document.createElement("user-message");
+    }
 </script>
 
 </body>
