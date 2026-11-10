@@ -91,7 +91,6 @@ button{
 
         if(input.value.length == 0){input.value="i typed nothing because i am boring"}
         if(input.value == "sudo rm -rf"){input.value="nice try lol"}
-        lasthuman = textprompt
         textprompt = input.value.toLowerCase()
 
         if(Math.random()<0.1 && sentencelist.length > 5){
@@ -100,28 +99,23 @@ button{
             textprompt = random(notable)+" "+random(notable)+" "+random(textprompt.split(" "))+" "+random(notable)+" "+random(notable)+" "+random(notable)+" "+random(textprompt.split(" "))
         }
     
-        if(Math.random()<0.5 && textprompt.length > 5){
+        mainnoun = getfirstnoun(textprompt)
+
+        if(Math.random()<0.1 && textprompt.length < 4){
             if(nouns.includes(mainnoun)){mainnoun=nouns[nouns.indexOf(mainnoun)+1]}
             mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
         }
 
-        parity = false;
         textprompt.split(" ").forEach(element => {
             if(element.at(-1)=="s"){element=element.slice(0, -1)}
-            if(["don't", "not", "anti"].includes(element)){parity=!parity}
-            if(element.length > 3 && "qwertyuiopasdfghjklzxcvbnm".includes(element.at(-1))){
-                if(["like", "dislike", "hate", "enjoy", "want"].includes(sentencelist[-1])){mainnoun =element}
-                    if(["dislike", "hate"].includes(sentencelist[-1])){parity=!parity}
-                    if((!["today", "like", "tomorrow", "they"].includes(element)) && !element.includes("ly")&& !element.includes("ed")&& !element.includes("gg") && !element.includes("ful") && !verbs.includes(element) && !adjectives.includes(element)){mainnoun=element}
-            }
-                sentencelist.push(element)
-                if(element.length > 3 && lastrobotsentence.includes(element)){notable.push(element)}
-            });
+            sentencelist.push(element)
+            if(element.length > 3 && lastrobotsentence.includes(element)){notable.push(element)}
+        });
             
             if(Math.random()<0.2){
                 textprompt = sentencelist.slice(sentencelist.length-5).join(" ")
             }
-        console.log(notable)
+        
         nouns.forEach(element => {
             if (textprompt.includes(element) && Math.random()<0.9){
                 mainnoun = element
@@ -150,6 +144,8 @@ button{
         }
         box.append(document.createElement("br"))
         if(textprompt.includes("seahorse emoji")){destroypage("🐟🥀🐟🐟🌲🌳🌴🐟🐟🐟🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🌳🌴🐟🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🧜‍♂️🧜‍♀️🪼🦐🦐🦐🦐🐟🐟🧜🦐🦐🦐🦐🦐🪸🪸🪸🪸🦐🦐🪸🪸🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🦐🦐🦐🦐🦐🪸🪸🪸🪸🦐🦐🪸🪸🪸🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🪸🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🪸🪸🪸🪸 - Ending 2")}
+        lasthuman = textprompt
+
     }
 
     function destroypage(x){
@@ -158,7 +154,7 @@ button{
 
     function sentence(){
         if(textprompt.length < 2){return("lazy")}
-        if(lasthuman==textprompt){lastrobotsentence="write something new, you "+random(nouns); return(lastrobotsentence); lasthuman = "null"; if(lastrobotsentence.includes("write something new")){destroypage("you're boring (ending 3)")}}
+        if(lasthuman==input.value.toLowerCase()){lastrobotsentence="write something new, you "+random(nouns); return(lastrobotsentence); lasthuman = "null"; if(lastrobotsentence.includes("write something new")){destroypage("you're boring (ending 3)")}}
         if(input.value.includes(lastrobotsentence) && human){
             if(lastrobotsentence == "stop"){lastrobotsentence = "no seriously stop";return("no seriously stop")}
             if(lastrobotsentence == "no seriously stop"){destroypage("i deleted the chat (stop repeating me) - Ending 1")}
@@ -322,6 +318,33 @@ button{
         return(sentencebase);
     }
 
+    function getfirstnoun(x){
+        if(Math.random()<0.9 && x.includes(mainnoun)){
+            return(mainnoun)
+        }
+
+        parity = false;
+        let iter = 0
+        x.split(" ").forEach(element => {
+            if(element.at(-1)=="s"){element=element.slice(0, -1)}
+
+            if(["don't", "not", "anti"].includes(element)){parity=!parity}
+
+            if(element.length > 3 && "qwertyuiopasdfghjklzxcvbnm".includes(element.at(-1))){
+                if(["like", "dislike", "hate", "enjoy", "want"].includes(sentencelist[-1])){mainnoun =element}
+                    if(["dislike", "hate"].includes(sentencelist[-1])){parity=!parity}
+                    if((!["today", "like", "tomorrow", "they"].includes(element)) && !element.includes("ly")&& !element.includes("ed")&& !element.includes("gg") && !element.includes("ful") && !verbs.includes(element) && !adjectives.includes(element)){mainnoun=element}
+                }
+            });
+            if((element=="is"||element=="does") && iter>0){return(mainnoun)}
+
+
+            if (x.includes(element) && Math.random()<0.9){
+                mainnoun = element
+            }
+
+            iter+=1
+        }
 </script>
 
 </body>
