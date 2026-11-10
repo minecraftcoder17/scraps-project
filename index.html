@@ -59,7 +59,7 @@ button{
     const emoji = ["😊","😊","😊", "🐟", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😉", "😎", "👍", "🙌", "😨", "🥶", "🫃", "🧛", "🍕"]
     var sentencelist = []
     var notable = []
-    const adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly", "nice", "sucpicious"]
+    const adjectives = ["strange", "weird", "funny", "cool", "big", "red", "green", "small", "silly", "nice", "suspicious"]
     const adjectivesb = ["strange", "weird", "funny", "cool", "silly"]
     const nouns = ["chatbot", "fish", "seaweed", "algae", "plant", "tree", "log", "stick", "wheel", "car", "tire", "engine", "robot", "AI", "explosive", "skeleton", "spooky skeleton", "movie", "youtube video", "meme", "egg", "pasta", "food", "coffee", "energy drink", "sport", "competition", "truck","train","toy train", "train track", "pasta","i-phone","computer", "charger", "electricity","house","garage","antarctica","pancake", "waffle","nintendo console","book", "bee movie script"]
     const verbs = ["taste", "kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "draw", "sketch", "yell at", "lick"]
@@ -68,7 +68,7 @@ button{
     var mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
     var mainverb = verbs[Math.floor(Math.random() * verbs.length)]
     var append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you", ".", ".", ".", "."]
-
+    var human = true
     input.addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
             regenerate();
@@ -84,6 +84,10 @@ button{
     // send message
 
     function regenerate(){
+        human = true
+        if(input.value == "i'm an ai"){human = false;
+            input.value=sentence()
+        }
 
         if(input.value.length == 0){input.value="i typed nothing because i am boring"}
         if(input.value == "sudo rm -rf"){input.value="nice try lol"}
@@ -155,7 +159,7 @@ button{
     function sentence(){
         if(textprompt.length < 2){return("lazy")}
         if(lasthuman==textprompt){lastrobotsentence="write something new, you "+random(nouns); return(lastrobotsentence); lasthuman = "null"; if(lastrobotsentence.includes("write something new")){destroypage("you're boring (ending 3)")}}
-        if(input.value.includes(lastrobotsentence)){
+        if(input.value.includes(lastrobotsentence) && human){
             if(lastrobotsentence == "stop"){lastrobotsentence = "no seriously stop";return("no seriously stop")}
             if(lastrobotsentence == "no seriously stop"){destroypage("i deleted the chat (stop repeating me) - Ending 1")}
             lastrobotsentence = "stop"
