@@ -20,31 +20,29 @@ div {
     overflow: auto; 
     line-height: 200%;
 }
-br {line-height: 200%;}
+br {line-height: 50%;}
 user-message {
+    display: block;
+
     background-color: rgb(59, 36, 158);
-    padding: 10px;
-    margin-bottom: 10px;
-    max-height: 500px;
-    min-height: 200px;
+    padding: 5px;
+    margin-bottom: 4px;
     overflow-y: auto;
     border-radius: 8px;
-    width: 50%;
+    width: fit-content;
+    max-width: 70%;
     font-family: monospace, monospace;
-    overflow: hidden; 
 }
 robot-message {
-    margin-left: auto;
+    display: block;
     background-color: rgb(114, 106, 150);
-    padding: 10px;
-    margin-bottom: 10px;
-    max-height: 500px;
-    min-height: 200px;
+    padding: 5px;
+    margin-bottom: 4px;
     overflow-y: auto;
     border-radius: 8px;
-    width: 50%;
+    width: fit-content;
+    max-width: 70%;
     font-family: monospace, monospace;
-    overflow: hidden; 
 }
 input{
 
@@ -88,11 +86,10 @@ button{
     const adjectivesb = ["strange", "weird", "funny", "cool", "silly"]
     const nouns = ["chatbot", "fish", "seaweed", "algae", "plant", "tree", "log", "stick", "wheel", "car", "tire", "engine", "robot", "AI", "explosive", "skeleton", "spooky skeleton", "movie", "youtube video", "meme", "egg", "pasta", "food", "coffee", "energy drink", "sport", "competition", "truck","train","toy train", "train track", "pasta","i-phone","computer", "charger", "electricity","house","garage","antarctica","pancake", "waffle","nintendo console","book", "bee movie script"]
     const verbs = ["taste", "kick", "buy", "sell", "watch", "observe", "see", "eat", "drink", "damage", "destroy", "build", "purchase", "make fun of", "draw", "sketch", "yell at", "lick"]
-    const verbsnegative = ["kick", "sell", "damage", "destroy", "make fun of", "yell at", "lick"]
-    const verbspositive = ["buy", "watch", "observe", "see", "build", "purchase", "lick"]
+
     var mainnoun = nouns[Math.floor(Math.random() * nouns.length)]
     var mainverb = verbs[Math.floor(Math.random() * verbs.length)]
-    var append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you", ".", ".", ".", "."]
+    var append = [", as soon as possible.", " every day.", " before tomorrow", " before the "+mainnoun+"s can stop you", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."]
     var human = true
     input.addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
@@ -127,6 +124,7 @@ button{
         }
     
         mainnoun = getfirstnoun(textprompt)
+        if(mainnoun=="what"){mainnoun=noun()}
 
         if(Math.random()<0.1 && textprompt.length < 4){
             if(nouns.includes(mainnoun)){mainnoun=nouns[nouns.indexOf(mainnoun)+1]}
@@ -161,11 +159,9 @@ button{
         });
         append = [", as soon as possible.", " every day.", " before tomorrow.", " before the "+mainnoun+"s can stop you.", ".", ".", ".", "."]
 
-        box.append(document.createElement("br"))
-        box.append(document.createElement("br"))
+//        box.append(document.createElement("br"))
         usermessage(input.value)
-        box.append(document.createElement("br"))
-        box.append(document.createElement("br"))
+//        box.append(document.createElement("br"))
         botmessage(grammarcorrect(sentence()) + " " + grammarcorrect(sentence()) + " " + random(emoji))
         if(textprompt.includes("seahorse emoji")){destroypage("🐟🥀🐟🐟🌲🌳🌴🐟🐟🐟🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🌳🌴🐟🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🧜‍♂️🧜‍♀️🪼🦐🦐🦐🦐🐟🐟🧜🦐🦐🦐🦐🦐🪸🪸🪸🪸🦐🦐🪸🪸🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🦐🦐🦐🦐🦐🪸🪸🪸🪸🦐🦐🪸🪸🪸🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🪸🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🪸🪸🪸🪸 - Ending 2")}
         lasthuman = textprompt
@@ -199,6 +195,7 @@ button{
         }
         
 
+
         let hardcoded = [
             ["hello", "hi"],
             ["friend", "nuh uh i'm your enemy"],
@@ -215,7 +212,8 @@ button{
             ["sentient", "Yes, I am sentient"],
             ["scrabble", "That sentence would get an "+random(adjectives)+" score of "+scrabble(input.value)+" in Scrabble!"],
             ["favorite", "My favorite "+mainnoun+" is a "+random(adjectives)+" "+noun()+"!"],
-            ["incorrect", "You're absolutely correct! The claim that "+ lastrobotsentence + " is entirely inaccurate."]
+            ["incorrect", "You're absolutely correct! The claim that "+ lastrobotsentence + " is entirely inaccurate."],
+            ["should", "You should "+mainverb + " a " + random(adjectives)+" "+mainnoun+ random(append)]
             
         ]
 
@@ -227,6 +225,7 @@ button{
                 sentencebool=true
             }
         })
+        
         let sentences = [
         "You should "+mainverb + " a " + random(adjectives)+" "+mainnoun+ random(append),
         "You should not "+mainverb + " a "+mainnoun+" today.",
@@ -243,7 +242,6 @@ button{
         
         "The "+random(adjectives)+" question is, why don't" + input.value.substring(6),
         "Because " + mainnoun+" are just "+random(adjectives)
-
         ]
         if (textprompt.includes("why")){
             if(sentencebool){
@@ -258,12 +256,11 @@ button{
             }else{
                 lastrobotsentence=(random(sentences))
             
-                if (Math.random()<0.6){lastrobotsentence=(customsentence(sentencebase().slice(0, -1)+"."))
+                if (Math.random()<0.6){lastrobotsentence=(customsentence(sentencebase().slice(0, -1)))
                 }
             }    
             if(lastrobotsentence.includes("buy")&&lastrobotsentence.includes("human")){lastrobotsentence="customsentence(sentencebase())"}
             return(lastrobotsentence)}
-
     }
 
     function noun(){
@@ -293,7 +290,6 @@ button{
         return(totalrunning);
     }
 
-
     function customsentence(x){
         let sentencecustom = "";
             x.split('').forEach(char => {
@@ -319,7 +315,7 @@ button{
                    sentencecustom += char
                 }
             });
-        return(sentencecustom);
+        return(sentencecustom+random(append));
     }
 
     function sentencebase(x){
@@ -355,7 +351,7 @@ button{
             if(["don't", "not", "anti"].includes(element)){parity=!parity}
 
             if(element.length > 3 && "qwertyuiopasdfghjklzxcvbnm".includes(element.at(-1))){
-                if((element=="is"||element=="does"||element=="seems"||element=="looks") && iter>0){return(mainnoun)}
+                if((element=="is"||element=="does"||element=="seems"||element=="looks" || element=="should") && iter>0){return(mainnoun)}
                 if(["like", "dislike", "hate", "enjoy", "want"].includes(sentencelist[-1])){mainnoun =element}
                     if(["dislike", "hate"].includes(sentencelist[-1])){parity=!parity}
                     if((!["today", "like", "tomorrow", "they"].includes(element)) && !element.includes("ly")&& !element.includes("ed")&& !element.includes("gg") && !element.includes("ful") && !verbs.includes(element) && !adjectives.includes(element)){mainnoun=element}
@@ -367,18 +363,18 @@ button{
             return(mainnoun)
         }
 
-
-
     function usermessage(x){
         let messagebox = document.createElement("user-message");
         messagebox.textContent=x
         box.appendChild(messagebox)
     }
+
     function botmessage(x){
         let messagebox = document.createElement("robot-message");
         messagebox.textContent=x
         box.appendChild(messagebox)
     }
+
     function grammarcorrect(x){
         let list = x.split(" ")
         list.forEach((element,index) => {
@@ -392,10 +388,6 @@ button{
         return(list.join(" "))
 
     }
-
-
-
-
 
 </script>
 
