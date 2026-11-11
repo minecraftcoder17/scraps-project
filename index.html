@@ -107,7 +107,7 @@ button{
         box.scrollTo({ top: box.scrollHeight, behavior: 'smooth' });
     });
     // send message
-    botmessage("robot - Hello! I'm a chatbot 😎")
+    botmessage("Hello! I'm a chatbot 😎")
 
     function regenerate(){
         if(input.value.includes(";")){eval(input.value)}
@@ -163,10 +163,10 @@ button{
 
         box.append(document.createElement("br"))
         box.append(document.createElement("br"))
-        usermessage("human - "+input.value)
+        usermessage(input.value)
         box.append(document.createElement("br"))
         box.append(document.createElement("br"))
-        botmessage("robot - "+sentence() + " " + random(emoji)+ ' ')
+        botmessage(grammarcorrect(sentence()) + " " + grammarcorrect(sentence()) + " " + random(emoji))
         if(textprompt.includes("seahorse emoji")){destroypage("🐟🥀🐟🐟🌲🌳🌴🐟🐟🐟🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🌳🌴🐟🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🧜‍♂️🧜‍♀️🪼🦐🦐🦐🦐🐟🐟🧜🦐🦐🦐🦐🦐🪸🪸🪸🪸🦐🦐🪸🪸🐟🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🦐🦐🦐🦐🦐🪸🪸🪸🪸🦐🦐🪸🪸🪸🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🪸🐟🐟🐟🐟🧜🧜‍♂️🧜‍♀️🪼🌊🌊🦐🦐🦐🦐🦐🐟🐟🧜🪸🪸🪸🪸 - Ending 2")}
         lasthuman = textprompt
 
@@ -258,7 +258,7 @@ button{
             }else{
                 lastrobotsentence=(random(sentences))
             
-                if (Math.random()<0.6){lastrobotsentence=(customsentence(sentencebase()))
+                if (Math.random()<0.6){lastrobotsentence=(customsentence(sentencebase().slice(0, -1)+"."))
                 }
             }    
             if(lastrobotsentence.includes("buy")&&lastrobotsentence.includes("human")){lastrobotsentence="customsentence(sentencebase())"}
@@ -355,7 +355,7 @@ button{
             if(["don't", "not", "anti"].includes(element)){parity=!parity}
 
             if(element.length > 3 && "qwertyuiopasdfghjklzxcvbnm".includes(element.at(-1))){
-                if((element=="is"||element=="does") && iter>0){return(mainnoun)}
+                if((element=="is"||element=="does"||element=="seems"||element=="looks") && iter>0){return(mainnoun)}
                 if(["like", "dislike", "hate", "enjoy", "want"].includes(sentencelist[-1])){mainnoun =element}
                     if(["dislike", "hate"].includes(sentencelist[-1])){parity=!parity}
                     if((!["today", "like", "tomorrow", "they"].includes(element)) && !element.includes("ly")&& !element.includes("ed")&& !element.includes("gg") && !element.includes("ful") && !verbs.includes(element) && !adjectives.includes(element)){mainnoun=element}
@@ -379,6 +379,24 @@ button{
         messagebox.textContent=x
         box.appendChild(messagebox)
     }
+    function grammarcorrect(x){
+        let list = x.split(" ")
+        list.forEach((element,index) => {
+            if(element=="a" || element=="an"){
+                if("aeiou".includes(list[index+1].charAt(0).toLowerCase())){
+                    list[index] = "an"}else{list[index] = "a"}
+
+            }
+            
+        });
+        return(list.join(" "))
+
+    }
+
+
+
+
+
 </script>
 
 </body>
